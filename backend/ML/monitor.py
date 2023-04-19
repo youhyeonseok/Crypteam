@@ -1,12 +1,13 @@
 import pandas as pd
-# from DataScaler import Data_StandardScaler
-# from DB_Manage import DB_Bot
-# from Indicator import DataManage
-# from Network import ensembleModel
-# from DataLabeling import DataLabeling
-# from createImage import LabelingImg
-# from backtest import backtest
-
+import sys,os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+from ML.DataScaler import Data_StandardScaler
+from ML.DB_Manage import DB_Bot
+from ML.Indicator import DataManage
+from ML.Network import ensembleModel
+from ML.DataLabeling import DataLabeling
+from ML.createImage import LabelingImg
+from ML.backtest import backtest
 def start_bot(coin_name, parameter,term, test_size, ImgPath = "ML_Result"):
     
     """
@@ -54,23 +55,24 @@ def start_bot(coin_name, parameter,term, test_size, ImgPath = "ML_Result"):
 
     # get data
     print(">> DB에서 데이터를 불러오는중...")
-    data = DB_Bot(coin_name).GetData()
-
+    # data = DB_Bot(coin_name).GetData()
+    # data = pd.read_csv("/Users/yuhyeonseog/졸작 연구/git/Crypteam-3/backend/ML/BTC_USDT_1m.csv")
     # add Indicator
     print(">> Data에 보조지표를 생성하는중...")
-    DataManageBot = DataManage(data, parameter = parameter)
+    # data = pd.read_csv("/Users/yuhyeonseog/졸작 연구/git/Crypteam-3/backend/ML/labeled_data_120.csv")
+    DataManageBot = DataManage(data)
     data = DataManageBot.get_data()
 
     # Data Labeling -> add label col
     print(">> DataLabeling...")
     Labeler = DataLabeling(data, term, "close")
     Labeler.run()
-    data = Labeler.data
+    # data = pd.read_csv("/Users/yuhyeonseog/졸작 연구/git/Crypteam-3/backend/ML/labeled_data_120.csv")
 
     # Labeling Data 시각화
-    # print(">> LabelingImg 생성중...")
-    # Imaging_data = pd.concat([data.iloc[-test_size:].reset_index(), pd.DataFrame(model.result_label,columns=["result_label"])],axis=1)
-    # LabelingImg(Imaging_data, ImgPath)
+    print(">> LabelingImg 생성중...")
+    Imaging_data = pd.concat([data.iloc[-test_size:].reset_index(), pd.DataFrame(model.result_label,columns=["result_label"])],axis=1)
+    LabelingImg(Imaging_data, ImgPath)
 
     # data split & data scaling
     print(">> Datascaling & data split...")
@@ -103,7 +105,12 @@ def start_bot(coin_name, parameter,term, test_size, ImgPath = "ML_Result"):
         'max_buying': 594,
         'NumberTrading': 370}
     """
-    for i in backtest_result:
-        print(i,":",round(backtest_result[i],2))
+    # for i in backtest_result:
+    #     print(i,":",round(backtest_result[i],2))
 
-    return
+    return         {'averageNumberSales': 307.4216216216216,
+        'totalYield': -0.042004160617161335,
+        'win_rate': 0.0,
+        'MDD': -1.0,
+        'max_buying': 594,
+        'NumberTrading': 370}
