@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ParameterInput from "../function/parameter";
 
 const BackTesting = () => {
 
@@ -15,7 +16,7 @@ const BackTesting = () => {
         
             const formData = { coin_name: coinName, parameter, term, test_size: testSize, ImgPath: imgPath };
         
-            axios.post("/api/start_bot", formData) //백엔드에 post 요청
+            axios.post("/api/start_bot/", formData) //백엔드에 post 요청
             .then(res => setResult(JSON.stringify(res.data))) //응답 받으면 result에 저장
             .catch(err => console.log(err));
         };
@@ -30,6 +31,7 @@ const BackTesting = () => {
             <div>
                 <label htmlFor="parameter">Parameter:</label>
                 <textarea id="parameter" value={parameter} onChange={(e) => setParameter(e.target.value)}></textarea>
+                {/*<ParameterInput></ParameterInput>*/}
             </div>
             <div>
                 <label htmlFor="term">Term:</label>
