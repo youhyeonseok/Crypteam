@@ -8,6 +8,17 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import status
 class DataView(APIView):
     def post(self, request):
+        user_id = request.data.get('user_id')
+        password = request.data.get('password')
+        re_password = request.data.get('re_password')
+        user_name = request.data.get('user_name')
+        birth = request.data.get('birth')
+        email = request.data.get('email')
+        phone_number = request.data.get('phone_number')
+        api_key = request.data.get('api_key')
+        sec_key = request.data.get('sec_key')
+        date = request.data.get('date')
+        print(user_id)
         # request.data로 데이터 수신
         serializer = UserInfoSerializer(data = request.data)
         token = TokenObtainPairSerializer.get_token(serializer)

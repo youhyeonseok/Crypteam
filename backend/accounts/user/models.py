@@ -14,3 +14,19 @@ class UserInfo(models.Model):
     # user_id, password, re_password, user_name, birth, email, phone_number, api_key, sec_key
 
     date = models.DateTimeField()
+
+
+    """
+    {
+        "user_id" : "you",
+        "password" : "you",
+        "re_password" : "you",
+        "user_name" : "you",
+        "birth" : "you",
+        "email" : "you",
+        "phone_number" : "you",
+        "api_key" : "you",
+        "sec_key" : "you",
+        "date" : "2018-01-01 00:00:00",
+}
+    """
